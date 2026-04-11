@@ -1,0 +1,64 @@
+import { createClient } from "@supabase/supabase-js";
+import type { SweepRow, LogRow, SweepInsert, LogInsert, SweepStatus } from "./database.types";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+/**
+ * Untyped Supabase client for direct use (e.g. Realtime subscriptions).
+ * For typed CRUD operations, use the helper functions below.
+ */
+export const supabase = createClient(supabaseUrl, supabaseKey);
+
+/** Server-side Supabase client (same key for now — RLS handles access) */
+export function createServerClient() {
+  return createClient(supabaseUrl, supabaseKey);
+}
+
+/* ──────────────────────── Typed Query Helpers ──────────────────────── */
+
+/** Fetch a single sweep by ID, joined with its logs. */
+export async function getSweepById(id: string) {
+  const { data, error } = await createServerClient()
+    .from("solsweep_sweeps")
+    .select("*, solsweep_logs ( * )")
+    .eq("id", id)
+    .single();
+  return { data: data as (SweepRow & { solsweep_logs: LogRow[] }) | null, error };
+}
+
+/** Fetch all sweeps, ordered by created_at desc, with logs. */
+export async function getAllSweeps() {
+  const { data, error } = await createServerClient()
+    .from("solsweep_sweeps")
+    .select("*, solsweep_logs ( * )")
+    .order("created_at", { ascending: false });
+  return { data: data as (SweepRow & { solsweep_logs: LogRow[] })[] | null, error };
+}
+
+/** Insert a new sweep record. */
+export async function insertSweep(row: Pick<SweepInsert, "repo_url" | "repo_name" | "status">) {
+  const { data, error } = await createServerClient()
+    .from("solsweep_sweeps")
+    .insert(row)
+    .select()
+    .single();
+  return { data: data as SweepRow | null, error };
+}
+
+/** Insert a log entry. */
+export async function insertLog(row: Pick<LogInsert, "sweep_id" | "level" | "message">) {
+  return createServerClient().from("solsweep_logs").insert(row);
+}
+
+/** Update a sweep's status and optional extra fields. */
+export async function updateSweepStatus(
+  id: string,
+  status: SweepStatus,
+  extra: Record<string, string | number | null> = {}
+) {
+  return createServerClient()
+    .from("solsweep_sweeps")
+    .update({ status, ...extra })
+    .eq("id", id);
+}

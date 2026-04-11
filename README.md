@@ -16,6 +16,18 @@
 
 SolSweep is an autonomous migration engine built for the **[DoraHacks Boring AI Hackathon 2026](https://dorahacks.io/hackathon/boring-ai)**. It upgrades legacy Solana codebases from `@solana/web3.js` to the modern `@solana/kit` standard — combining deterministic AST transforms with a compiler-in-the-loop AI for edge cases that mechanical regex can't handle.
 
+<p align="center">
+  <img src="docs/screenshots/landing-page.png" alt="SolSweep Landing Page" width="720" />
+  <br/>
+  <em>Landing Page — Hero with live terminal animation</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="SolSweep Dashboard" width="720" />
+  <br/>
+  <em>Dashboard — Real-time sweep monitoring with AST/AI fix counters</em>
+</p>
+
 ---
 
 ## 🎯 Problem
@@ -165,7 +177,9 @@ solsweep/
 
 ## 📹 Demo
 
-> 🎥 [Watch Demo Video](#) | 🌐 [Live Demo](#)
+> 🎥 **Demo Video:** See [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the full recording walkthrough.
+>
+> To run the demo locally: `npm run dev` → open [http://localhost:3000](http://localhost:3000) → paste any GitHub repo URL → watch the pipeline execute.
 
 ---
 
