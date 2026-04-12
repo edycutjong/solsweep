@@ -18,7 +18,6 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
   const [sweep, setSweep] = useState<Sweep | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Poll for updates on this single detail view pages. Polling is simple + reliable for terminal text.
   useEffect(() => {
 
     const fetchData = async () => {
@@ -56,10 +55,7 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
     };
 
     fetchData();
-
-    // Poll every 1s while not complete/failed
     const interval = setInterval(fetchData, 1000);
-
     return () => clearInterval(interval);
   }, [id]);
 
@@ -68,6 +64,7 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
       <>
         <Header />
         <main className="flex-1 px-6 py-8 flex flex-col items-center justify-center min-h-[50vh]">
+          <div className="text-6xl mb-4">🔍</div>
           <h1 className="text-2xl font-bold mb-4">Sweep Not Found</h1>
           <Link href="/dashboard" className="text-sol-green hover:underline">Return to Dashboard</Link>
         </main>
@@ -81,9 +78,9 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
         <Header />
         <main className="flex-1 px-6 py-8 flex items-center justify-center min-h-[50vh]">
           <div className="flex flex-col items-center gap-4">
-            <span className="relative flex h-4 w-4">
+            <span className="relative flex h-5 w-5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sol-green opacity-75" />
-              <span className="relative inline-block h-4 w-4 rounded-full bg-sol-green" />
+              <span className="relative inline-block h-5 w-5 rounded-full bg-sol-green" />
             </span>
             <div className="text-sol-muted font-mono animate-pulse">Loading Sweep Data...</div>
           </div>
@@ -106,9 +103,17 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
       <Header />
       <main className="flex-1 px-6 py-8 relative overflow-hidden">
         {/* Background effects */}
+        <div className="hero-mesh" />
         <div className="animated-grid" style={{ opacity: 0.3 }} />
         <div className="orb orb-green h-[300px] w-[300px] top-[10%] right-[15%] opacity-40" />
         <div className="orb orb-purple h-[250px] w-[250px] bottom-[15%] left-[10%] opacity-30" />
+
+        {/* Particles */}
+        <div className="particles">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="particle" />
+          ))}
+        </div>
 
         <div className="relative z-10 mx-auto max-w-5xl">
           {/* Breadcrumb */}
@@ -128,8 +133,8 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
               <div className="flex items-center gap-3">
                 <h1 className="text-2xl font-bold">{sweep.repoName}</h1>
                 {isActive && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-sol-purple/10 border border-sol-purple/20 px-3 py-1 text-xs font-semibold text-sol-purple shadow-lg shadow-sol-purple/10">
-                    <span className="relative flex h-2 w-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-sol-purple/10 border border-sol-purple/20 px-3 py-1 text-xs font-semibold text-sol-purple shadow-lg shadow-sol-purple/10 animated-badge-border">
+                    <span className="relative flex h-2 w-2 glow-dot text-sol-purple">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sol-purple opacity-75" />
                       <span className="relative inline-block h-2 w-2 rounded-full bg-sol-purple" />
                     </span>
@@ -152,7 +157,7 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
                 href={sweep.prUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl glass px-5 py-2.5 text-sm font-semibold text-sol-green transition-all hover:shadow-lg hover:shadow-sol-green/20 glow-green-intense"
+                className="inline-flex items-center gap-2 rounded-xl glass px-5 py-2.5 text-sm font-semibold text-sol-green transition-all hover:shadow-lg hover:shadow-sol-green/20 glow-green-intense cta-magnetic"
               >
                 <svg
                   className="h-4 w-4"
@@ -173,7 +178,7 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
           </div>
 
           {/* Pipeline */}
-          <div className="mb-8 rounded-2xl glass p-6 animate-slide-up" style={{ animationDelay: "200ms" }}>
+          <div className="mb-8 rounded-2xl glass p-6 animate-slide-up shimmer-border" style={{ animationDelay: "200ms" }}>
             <h2 className="mb-4 text-xs font-bold text-sol-muted uppercase tracking-widest">
               Pipeline Status
             </h2>
@@ -182,30 +187,34 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
 
           {/* Metrics */}
           <div className="mb-8 grid grid-cols-2 sm:grid-cols-4 gap-4 stagger-children animate-slide-up" style={{ animationDelay: "300ms" }}>
-            <div className="rounded-xl glass p-5 text-center card-hover">
-              <div className="text-3xl font-bold text-sol-warning tabular-nums">
-                {sweep.astFixes}
+            {[
+              { value: sweep.astFixes, label: "AST Transforms", color: "text-sol-warning", icon: "⚙️", ringColor: "#f59e0b" },
+              { value: sweep.aiFixes, label: "AI Loop Fixes", color: "text-sol-purple", icon: "🧠", ringColor: "#9945FF" },
+              { value: sweep.filesChanged, label: "Files Changed", color: "text-foreground", icon: "📁", ringColor: "#e2e8f0" },
+              { value: duration !== null && duration >= 0 ? duration : null, label: "Duration", color: "text-sol-green", icon: "⏱️", ringColor: "#14F195", suffix: duration !== null && duration >= 0 ? "m" : sweep.completedAt ? "< 1m" : "—" },
+            ].map(({ value, label, color, icon, ringColor, suffix }) => (
+              <div key={label} className="rounded-xl glass p-5 text-center card-hover shine-effect group">
+                <div className="relative inline-flex items-center justify-center mx-auto mb-2">
+                  <svg className="absolute h-16 w-16 -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(30, 41, 59, 0.3)" strokeWidth="2" />
+                    <circle
+                      cx="50" cy="50" r="45" fill="none"
+                      stroke={ringColor}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      className="stat-ring"
+                      style={{ "--ring-offset": value ? `${283 - (283 * Math.min((value as number) / 200, 1))}` : "283" } as React.CSSProperties}
+                      opacity="0.4"
+                    />
+                  </svg>
+                  <div className="text-xl mb-0.5">{icon}</div>
+                </div>
+                <div className={`text-3xl font-bold tabular-nums ${color} transition-all group-hover:scale-110`}>
+                  {value !== null ? value : ""}{suffix && typeof suffix === "string" ? suffix : ""}
+                </div>
+                <div className="mt-1 text-xs text-sol-muted font-medium">{label}</div>
               </div>
-              <div className="mt-1 text-xs text-sol-muted font-medium">AST Transforms</div>
-            </div>
-            <div className="rounded-xl glass p-5 text-center card-hover">
-              <div className="text-3xl font-bold text-sol-purple tabular-nums">
-                {sweep.aiFixes}
-              </div>
-              <div className="mt-1 text-xs text-sol-muted font-medium">AI Loop Fixes</div>
-            </div>
-            <div className="rounded-xl glass p-5 text-center card-hover">
-              <div className="text-3xl font-bold text-foreground tabular-nums">
-                {sweep.filesChanged}
-              </div>
-              <div className="mt-1 text-xs text-sol-muted font-medium">Files Changed</div>
-            </div>
-            <div className="rounded-xl glass p-5 text-center card-hover">
-              <div className="text-3xl font-bold text-sol-green tabular-nums">
-                {duration !== null && duration >= 0 ? `${duration}m` : (sweep.completedAt ? "< 1m" : "—")}
-              </div>
-              <div className="mt-1 text-xs text-sol-muted font-medium">Duration</div>
-            </div>
+            ))}
           </div>
 
           {/* Terminal */}

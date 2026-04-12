@@ -33,7 +33,7 @@ function normalizeSweeps(data: RawSweepRow[]): Sweep[] {
     aiFixes: row.ai_fixes,
     startedAt: row.started_at,
     completedAt: row.completed_at,
-    logs: [], // Minimal fetch
+    logs: [],
   }));
 }
 
@@ -42,7 +42,6 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Initial fetch from API
     fetch("/api/sweep")
       .then((res) => res.json())
       .then((data) => {
@@ -52,14 +51,12 @@ export default function DashboardPage() {
         setLoading(false);
       });
 
-    // 2. Setup Realtime Subscription
     const channel = supabase
       .channel("solsweep_sweeps_changes")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "solsweep_sweeps" },
         () => {
-          // Re-fetch everything on change for simplicity in this dashboard
           fetch("/api/sweep")
             .then((res) => res.json())
             .then((data) => {
@@ -101,19 +98,29 @@ export default function DashboardPage() {
     <>
       <Header />
       <main className="flex-1 px-6 py-8 relative overflow-hidden">
-        {/* Subtle background effects */}
-        <div className="orb orb-green h-[300px] w-[300px] top-[5%] right-[10%] opacity-50" />
-        <div className="orb orb-purple h-[250px] w-[250px] bottom-[20%] left-[5%] opacity-40" />
+        {/* Layered background effects */}
+        <div className="hero-mesh" />
+        <div className="animated-grid" style={{ opacity: 0.3 }} />
+        <div className="orb orb-green h-[300px] w-[300px] top-[5%] right-[10%] opacity-40" />
+        <div className="orb orb-purple h-[250px] w-[250px] bottom-[20%] left-[5%] opacity-30" />
+
+        {/* Particles */}
+        <div className="particles">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} className="particle" />
+          ))}
+        </div>
 
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* Page title */}
           <div className="mb-8 animate-slide-up">
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-3xl font-bold tracking-tight">
-                Sweep <span className="gradient-text">Dashboard</span>
+                Sweep{" "}
+                <span className="gradient-text-shimmer">Dashboard</span>
               </h1>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-sol-green/10 px-3 py-1 text-xs font-semibold text-sol-green">
-                <span className="relative flex h-1.5 w-1.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sol-green/10 px-3 py-1 text-xs font-semibold text-sol-green animated-badge-border">
+                <span className="relative flex h-1.5 w-1.5 glow-dot text-sol-green">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sol-green opacity-75" />
                   <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-sol-green" />
                 </span>
@@ -126,12 +133,18 @@ export default function DashboardPage() {
           </div>
 
           {/* Input */}
-          <div className="mb-8 animate-slide-up" style={{ animationDelay: "100ms" }}>
+          <div
+            className="mb-8 animate-slide-up"
+            style={{ animationDelay: "100ms" }}
+          >
             <SweepInput onSubmit={handleStartSweep} />
           </div>
 
           {/* Stats */}
-          <div className="mb-8 animate-slide-up" style={{ animationDelay: "200ms" }}>
+          <div
+            className="mb-8 animate-slide-up"
+            style={{ animationDelay: "200ms" }}
+          >
             <StatsBar
               totalPRs={totalPRs}
               totalAstFixes={totalAstFixes}
@@ -141,7 +154,10 @@ export default function DashboardPage() {
           </div>
 
           {/* Sweep grid */}
-          <div className="mb-4 flex items-center justify-between animate-slide-up" style={{ animationDelay: "300ms" }}>
+          <div
+            className="mb-4 flex items-center justify-between animate-slide-up"
+            style={{ animationDelay: "300ms" }}
+          >
             <h2 className="text-lg font-semibold">Active Sweeps</h2>
             <span className="text-sm text-sol-muted font-mono">
               {!loading ? sweeps.length : "..."} repositories
@@ -150,9 +166,28 @@ export default function DashboardPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
             {loading ? (
-              <div className="text-sol-muted p-4">Loading active sweeps from Supabase...</div>
+              <div className="col-span-full flex justify-center py-12">
+                <div className="flex flex-col items-center gap-4">
+                  <span className="relative flex h-5 w-5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sol-green opacity-75" />
+                    <span className="relative inline-block h-5 w-5 rounded-full bg-sol-green" />
+                  </span>
+                  <div className="text-sol-muted font-mono text-sm animate-pulse">
+                    Loading active sweeps from Supabase...
+                  </div>
+                </div>
+              </div>
             ) : sweeps.length === 0 ? (
-              <div className="text-sol-muted p-4 border border-sol-border/50 rounded-xl glass">No active sweeps found.</div>
+              <div className="col-span-full rounded-2xl glass p-8 text-center">
+                <div className="text-4xl mb-3">🧹</div>
+                <div className="text-sol-muted font-medium">
+                  No active sweeps found
+                </div>
+                <div className="text-sol-muted/60 text-sm mt-1">
+                  Paste a GitHub repo URL above to start your first
+                  migration
+                </div>
+              </div>
             ) : (
               sweeps.map((sweep) => (
                 <div key={sweep.id} className="animate-fade-in-scale">
