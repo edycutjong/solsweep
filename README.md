@@ -219,7 +219,7 @@ Built for the DoraHacks Boring AI Hackathon 2026.
 **Thumbnail (16:9 format):**
 For the YouTube thumbnail, you can use the high-fidelity landing page screenshot formatted to a standard 1280x720 16:9 layout.
 <p align="center">
-  <img src="docs/screenshots/landing-page.png" alt="SolSweep Video Thumbnail" width="640" />
+  <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Video Thumbnail" width="640" />
 </p>
 
 ---
