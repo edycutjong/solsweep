@@ -171,19 +171,8 @@ solsweep/
 **Track:** Case Studies / Production-grade Upgrade Recipes  
 **Core Thesis:** AI migrations are broken because LLMs hallucinate syntax. By constraining the AI to only fix compiler-verified errors (not generate code from scratch), SolSweep achieves **zero false positives** — making it genuinely "boring" in the best possible way.
 
----
-
-## 📹 Demo
-
-> 🌐 **Live App:** [solsweep.edycu.dev](https://solsweep.edycu.dev/)
->
-> 🎥 **Demo Video:** [Watch on YouTube](https://youtu.be/ApeRnzYuN7U) or see [DEMO_SCRIPT.md](./docs/DEMO_SCRIPT.md) for the script.
->
-> 📄 **Case Study:** See [CASE_STUDY.md](./docs/CASE_STUDY.md) for the compiler-in-the-loop approach.
->
-> To run locally: `npm run dev` → open [http://localhost:3000](http://localhost:3000) → paste any GitHub repo URL → watch the pipeline execute.
-
----
+> 📄 **Read the Full Case Study:** [CASE_STUDY.md](./docs/CASE_STUDY.md) covers our AST + compiler-in-the-loop implementation in depth.
+> 🎬 **Demo Materials:** [DEMO_SCRIPT.md](./docs/DEMO_SCRIPT.md) contains the video flow & pitch.
 
 ---
 
