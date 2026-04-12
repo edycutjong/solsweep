@@ -28,6 +28,12 @@ SolSweep is an autonomous migration engine built for the **[DoraHacks Boring AI 
   <em>Dashboard — Real-time sweep monitoring with AST/AI fix counters</em>
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/sweep-detail.png" alt="SolSweep Pipeline Detail" width="720" />
+  <br/>
+  <em>Sweep Detail — 4-stage pipeline visualization with code rain terminal</em>
+</p>
+
 ---
 
 ## 🎯 Problem
