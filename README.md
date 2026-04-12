@@ -1,12 +1,13 @@
 <p align="center">
-  <img src="public/logo.png" alt="SolSweep Logo" width="120" />
+  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
+  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?style=for-the-badge&logo=youtube" alt="Demo Video" /></a>
 </p>
 
 <p align="center">
   <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Project Banner" width="800" />
 </p>
 
-<h1 align="center">🧹 SolSweep</h1>
+<h1 align="center">SolSweep</h1>
 <p align="center"><strong>Zero-FP Solana Migrations</strong></p>
 
 <p align="center">
@@ -14,8 +15,6 @@
   <img src="https://img.shields.io/badge/React-19.2-61dafb?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
-  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?style=flat&logo=vercel" alt="Live Demo" /></a>
-  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?style=flat&logo=youtube" alt="Demo Video" /></a>
 </p>
 
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
