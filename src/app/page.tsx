@@ -310,7 +310,7 @@ export default function Home() {
           </h1>
 
           <p
-            className="animate-slide-up relative z-10 mt-6 max-w-xl text-lg leading-relaxed text-sol-muted"
+            className="animate-slide-up relative z-10 mt-6 w-full max-w-3xl text-sm sm:text-lg leading-relaxed text-sol-muted whitespace-nowrap"
             style={{ animationDelay: "400ms" }}
           >
             <TypewriterText

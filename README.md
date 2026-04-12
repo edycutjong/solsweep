@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?logo=vercel" alt="Live Demo" /></a>
-  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?logo=youtube" alt="Demo Video" /></a>
-</p>
 
 <p align="center">
   <a href="https://solsweep.edycu.dev/">
@@ -17,6 +13,10 @@
   <img src="https://img.shields.io/badge/React-19.2-61dafb?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
+</p>
+<p align="center">
+  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?logo=vercel" alt="Live Demo" /></a>
+  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?logo=youtube" alt="Demo Video" /></a>
 </p>
 
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
