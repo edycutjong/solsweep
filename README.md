@@ -2,6 +2,10 @@
   <img src="public/logo.png" alt="SolSweep Logo" width="120" />
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Project Banner" width="800" />
+</p>
+
 <h1 align="center">🧹 SolSweep</h1>
 <p align="center"><strong>Zero-FP Solana Migrations</strong></p>
 
@@ -17,12 +21,6 @@
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
 
 SolSweep is an autonomous migration engine built for the **[DoraHacks Boring AI Hackathon 2026](https://dorahacks.io/hackathon/boring-ai)**. It upgrades legacy Solana codebases from `@solana/web3.js` to the modern `@solana/kit` standard — combining deterministic AST transforms with a compiler-in-the-loop AI for edge cases that mechanical regex can't handle.
-
-<p align="center">
-  <img src="docs/screenshots/landing-page.png" alt="SolSweep Landing Page" width="720" />
-  <br/>
-  <em>Landing Page — Hero with live terminal animation</em>
-</p>
 
 <p align="center">
   <img src="docs/screenshots/dashboard.png" alt="SolSweep Dashboard" width="720" />
@@ -62,28 +60,9 @@ Solana's migration from `@solana/web3.js` to `@solana/kit` affects thousands of 
 
 ## 🏗️ Architecture
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                    Next.js 16 App Router                  │
-├──────────────────┬───────────────────────────────────────┤
-│  Landing Page    │  Hero + Live Code Preview animation   │
-│                  │  "How it Works" 4-step pipeline       │
-├──────────────────┼───────────────────────────────────────┤
-│  Dashboard       │  Sweep list + real-time status        │
-│                  │  Pipeline progress visualization      │
-│                  │  Log terminal with color-coded output │
-├──────────────────┼───────────────────────────────────────┤
-│  API Routes      │  /api/sweep — trigger new migration   │
-│                  │  /api/status — poll sweep progress    │
-├──────────────────┼───────────────────────────────────────┤
-│  Worker          │  Git clone → ast-grep/Codemod mods   │
-│  Worker          │  tsc compilation → error extraction   │
-│                  │  Claude → patch → re-compile      │
-│                  │  git push → GitHub PR creation         │
-├──────────────────┼───────────────────────────────────────┤
-│  Data Layer      │  Supabase (sweep records + analytics) │
-└──────────────────┴───────────────────────────────────────┘
-```
+<p align="center">
+  <img src="docs/architecture.png" alt="SolSweep Architecture" width="720" />
+</p>
 
 ---
 
@@ -191,9 +170,9 @@ solsweep/
 
 > 🌐 **Live App:** [solsweep.edycu.dev](https://solsweep.edycu.dev/)
 >
-> 🎥 **Demo Video:** [Watch on YouTube](https://youtu.be/ApeRnzYuN7U) or see [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the script.
+> 🎥 **Demo Video:** [Watch on YouTube](https://youtu.be/ApeRnzYuN7U) or see [DEMO_SCRIPT.md](./docs/DEMO_SCRIPT.md) for the script.
 >
-> 📄 **Case Study:** See [CASE_STUDY.md](./CASE_STUDY.md) for the compiler-in-the-loop approach.
+> 📄 **Case Study:** See [CASE_STUDY.md](./docs/CASE_STUDY.md) for the compiler-in-the-loop approach.
 >
 > To run locally: `npm run dev` → open [http://localhost:3000](http://localhost:3000) → paste any GitHub repo URL → watch the pipeline execute.
 
