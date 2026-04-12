@@ -281,4 +281,21 @@ describe("Page: Home", () => {
     render(<SpotlightCard>Test Default Card</SpotlightCard>);
     expect(screen.getByText("Test Default Card")).toBeInTheDocument();
   });
+
+  it("fully cycles TypewriterText: types, deletes, and switches", () => {
+    render(<TypewriterText texts={["A", "B"]} speed={10} pause={50} />);
+    
+    // Types "A"
+    act(() => { jest.advanceTimersByTime(20); });
+    // Pause state (triggers isDeleting)
+    act(() => { jest.advanceTimersByTime(60); });
+    // Deletes "A", becomes ""
+    act(() => { jest.advanceTimersByTime(20); });
+    // isDeleting===true and displayText==="", triggers setIsDeleting(false) and switches to "B"
+    act(() => { jest.advanceTimersByTime(20); });
+    
+    // Now it should have typed "B"
+    act(() => { jest.advanceTimersByTime(20); }); 
+    expect(screen.getByText((content) => content.includes("B"))).toBeInTheDocument();
+  });
 });
