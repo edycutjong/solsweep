@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
   <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?style=flat&logo=vercel" alt="Live Demo" /></a>
+  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?style=flat&logo=youtube" alt="Demo Video" /></a>
 </p>
 
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
@@ -190,7 +191,7 @@ solsweep/
 
 > 🌐 **Live App:** [solsweep.edycu.dev](https://solsweep.edycu.dev/)
 >
-> 🎥 **Demo Video:** See [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the full recording walkthrough.
+> 🎥 **Demo Video:** [Watch on YouTube](https://youtu.be/ApeRnzYuN7U) or see [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the script.
 >
 > 📄 **Case Study:** See [CASE_STUDY.md](./CASE_STUDY.md) for the compiler-in-the-loop approach.
 >
