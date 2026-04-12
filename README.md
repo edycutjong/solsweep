@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/React-19.2-61dafb?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
+  <a href="https://solsweep-blond.vercel.app"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.vercel.app-00ffaa?style=flat&logo=vercel" alt="Live Demo" /></a>
 </p>
 
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
@@ -183,9 +184,13 @@ solsweep/
 
 ## 📹 Demo
 
+> 🌐 **Live App:** [solsweep-blond.vercel.app](https://solsweep-blond.vercel.app)
+>
 > 🎥 **Demo Video:** See [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the full recording walkthrough.
 >
-> To run the demo locally: `npm run dev` → open [http://localhost:3000](http://localhost:3000) → paste any GitHub repo URL → watch the pipeline execute.
+> 📄 **Case Study:** See [CASE_STUDY.md](./CASE_STUDY.md) for the compiler-in-the-loop approach.
+>
+> To run locally: `npm run dev` → open [http://localhost:3000](http://localhost:3000) → paste any GitHub repo URL → watch the pipeline execute.
 
 ---
 
