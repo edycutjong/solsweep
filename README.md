@@ -4,7 +4,9 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Project Banner" width="800" />
+  <a href="https://solsweep.edycu.dev/">
+    <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Project Banner" width="800" />
+  </a>
 </p>
 
 <h1 align="center">SolSweep</h1>
