@@ -3,7 +3,8 @@
 import Header from "@/components/Header";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-
+import { Wrench, BrainCircuit } from "lucide-react";
+import { SiNextdotjs, SiReact, SiTypescript, SiSupabase } from "@icons-pack/react-simple-icons";
 /* ─── Intersection Observer scroll reveal ───────────────────────── */
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -562,12 +563,12 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
-                { name: "Next.js 16", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 3.5l7 14H5l7-14z"/></svg>, bg: "from-white/10 to-white/5" },
-                { name: "React 19", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10zM12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2Z"/><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(45 12 12)"/><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(-45 12 12)"/><circle cx="12" cy="12" r="2"/></svg>, bg: "from-blue-500/10 to-cyan-500/5" },
-                { name: "TypeScript", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h20v20H2V2zm10.5 10.5v-3h-3v-1.5h7.5v1.5h-3v7.5h-1.5v-4.5zm-5 4.5c-2.5 0-3.5-1.5-3.5-3.5h1.5c0 1.5.5 2 2 2s2-.5 2-1.5c0-2-3.5-1.5-3.5-4s1.5-3.5 3.5-3.5c2 0 3.5 1 3.5 3h-1.5c0-1-1-1.5-2-1.5s-2 .5-2 1.5c0 2 3.5 1.5 3.5 4s-1.5 3.5-3.5 3.5z"/></svg>, bg: "from-blue-500/10 to-blue-700/5" },
-                { name: "Supabase", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-4H7l6-7v4h4l-6 7z"/></svg>, bg: "from-emerald-500/10 to-emerald-700/5" },
-                { name: "ast-grep", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>, bg: "from-sol-warning/10 to-orange-500/5" },
-                { name: "Claude", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1-.98-4.36 2.5 2.5 0 0 1 1.9-4.22A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0 .98-4.36 2.5 2.5 0 0 0-1.9-4.22A2.5 2.5 0 0 0 14.5 2z"/></svg>, bg: "from-sol-purple/10 to-pink-500/5" },
+                { name: "Next.js 16", icon: <SiNextdotjs size={32} className="mx-auto text-white" />, bg: "from-white/10 to-white/5" },
+                { name: "React 19", icon: <SiReact size={32} className="mx-auto text-[#61DAFB]" />, bg: "from-blue-500/10 to-cyan-500/5" },
+                { name: "TypeScript", icon: <SiTypescript size={32} className="mx-auto text-[#3178C6]" />, bg: "from-blue-500/10 to-blue-700/5" },
+                { name: "Supabase", icon: <SiSupabase size={32} className="mx-auto text-[#3ECF8E]" />, bg: "from-emerald-500/10 to-emerald-700/5" },
+                { name: "ast-grep", icon: <Wrench size={32} className="mx-auto text-orange-400" />, bg: "from-sol-warning/10 to-orange-500/5" },
+                { name: "Claude", icon: <BrainCircuit size={32} className="mx-auto text-pink-400" />, bg: "from-sol-purple/10 to-pink-500/5" },
               ].map(({ name, icon, bg }) => (
                 <div
                   key={name}
