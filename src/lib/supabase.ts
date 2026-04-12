@@ -62,3 +62,17 @@ export async function updateSweepStatus(
     .update({ status, ...extra })
     .eq("id", id);
 }
+
+/** Delete all logs for a specific sweep ID. */
+export async function deleteLogsBySweepId(sweepId: string) {
+  const { error } = await createServerClient()
+    .from("solsweep_logs")
+    .delete()
+    .eq("sweep_id", sweepId);
+
+  if (error) {
+    console.error(`Error deleting logs for sweep ${sweepId}:`, error);
+    // Continue anyway, it's not fatal
+  }
+  return { error };
+}

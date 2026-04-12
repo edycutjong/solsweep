@@ -191,7 +191,7 @@ export default function SweepDetailPage({ params }: { params: Promise<{ id: stri
               { value: sweep.astFixes, label: "AST Transforms", color: "text-sol-warning", icon: "⚙️", ringColor: "#f59e0b" },
               { value: sweep.aiFixes, label: "AI Loop Fixes", color: "text-sol-purple", icon: "🧠", ringColor: "#9945FF" },
               { value: sweep.filesChanged, label: "Files Changed", color: "text-foreground", icon: "📁", ringColor: "#e2e8f0" },
-              { value: duration !== null && duration >= 0 ? duration : null, label: "Duration", color: "text-sol-green", icon: "⏱️", ringColor: "#14F195", suffix: duration !== null && duration >= 0 ? "m" : sweep.completedAt ? "< 1m" : "—" },
+              { value: duration !== null && duration > 0 ? duration : null, label: "Duration", color: "text-sol-green", icon: "⏱️", ringColor: "#14F195", suffix: duration !== null && duration > 0 ? "m" : sweep.completedAt ? "< 1m" : "—" },
             ].map(({ value, label, color, icon, ringColor, suffix }) => (
               <div key={label} className="rounded-xl glass p-5 text-center card-hover shine-effect group">
                 <div className="relative inline-flex items-center justify-center mx-auto mb-2">

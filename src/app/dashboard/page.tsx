@@ -40,16 +40,34 @@ function normalizeSweeps(data: RawSweepRow[]): Sweep[] {
 export default function DashboardPage() {
   const [sweeps, setSweeps] = useState<Sweep[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
+  const fetchSweeps = () => {
+    setLoading(true);
+    setError(false);
     fetch("/api/sweep")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Fetch failed");
+        return res.json();
+      })
       .then((data) => {
         if (!data.error) {
           setSweeps(normalizeSweeps(data));
+        } else {
+          console.error("Dashboard fetch error:", data.error);
+          setError(true);
         }
         setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Dashboard fetch network error:", err);
+        setError(true);
+        setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchSweeps();
 
     const channel = supabase
       .channel("solsweep_sweeps_changes")
@@ -62,6 +80,8 @@ export default function DashboardPage() {
             .then((data) => {
               if (!data.error) {
                 setSweeps(normalizeSweeps(data));
+              } else {
+                console.error("Realtime refetch error:", data.error);
               }
             });
         }
@@ -88,6 +108,8 @@ export default function DashboardPage() {
       });
       if (res.ok) {
         // Realtime will pick up the change
+      } else {
+        console.error("Failed to start sweep:", res.status);
       }
     } catch (e) {
       console.error(e);
@@ -165,7 +187,19 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
-            {loading ? (
+            {error ? (
+              <div className="col-span-full rounded-2xl glass p-8 text-center border-sol-red/20 shadow-lg shadow-sol-red/5">
+                <div className="text-4xl mb-3">⚠️</div>
+                <div className="text-foreground font-bold text-lg mb-2">Error Loading Sweeps</div>
+                <div className="text-sol-muted mb-6">Failed to connect to the SolSweep migration engine.</div>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="rounded-xl glass px-6 py-2.5 text-sm font-semibold text-sol-green hover:bg-sol-green hover:text-background transition-all"
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : loading ? (
               <div className="col-span-full flex justify-center py-12">
                 <div className="flex flex-col items-center gap-4">
                   <span className="relative flex h-5 w-5">
