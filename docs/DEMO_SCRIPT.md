@@ -20,10 +20,10 @@
 *   **Action**: The UI will automatically redirect to the Sweep Detail view (`/dashboard/YOUR_ID`).
 *   **Action**: Watch the "Pipeline Status" horizontally highlight from **Cloning** → **AST Transforms**.
 *   **Action**: Scroll down slightly to ensure the **Log Terminal** is fully visible on screen. Watch the console print the background worker steps mimicking the container spin-up and code replacements. 
-*   **Voiceover**: "Our background worker immediately spins up. First, we run lightning-fast `jscodeshift` AST codemods to handle the mechanical replacements."
+*   **Voiceover**: "Our background worker immediately spins up. First, we run lightning-fast `ast-grep` codemods to handle the mechanical replacements."
 
 ### 4. Compiler-in-the-Loop Action (1:15 - 1:40)
-*   **Action**: Let the pipeline progress to **Compiler-in-the-Loop**. Wait for the purple 'ai' log to appear in the terminal (`[AI] Compiler-Loop: Feeding error TS2322 to Claude 3.5 Sonnet...`).
+*   **Action**: Let the pipeline progress to **Compiler-in-the-Loop**. Wait for the purple 'ai' log to appear in the terminal (`[AI] Compiler-Loop: Feeding error TS2322 to Claude Sonnet...`).
 *   **Voiceover**: "Mechanical regex isn't enough. We run `tsc` to find type mismatches and feed them directly into an LLM agent to iteratively patch the edge cases."
 
 ### 5. Conclusion & PR Hook (1:40 - 2:00)

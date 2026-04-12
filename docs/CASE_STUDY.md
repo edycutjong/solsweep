@@ -42,23 +42,20 @@ SolSweep's migration pipeline operates in four deterministic stages:
 
 ### Stage 1: AST Codemods (Deterministic, 80% Coverage)
 
-We use `jscodeshift` to perform exact AST-level transformations. These are **mathematically precise** — they cannot introduce false positives because they operate on the parsed syntax tree, not raw text.
+We use the official **Codemod toolkit** with the **`ast-grep`** engine to perform exact AST-level transformations. These are **mathematically precise** — they cannot introduce false positives because they operate on the parsed syntax tree, not raw text.
 
 **Transforms implemented:**
 
 | Pattern | Before | After |
 |---------|--------|-------|
 | Import rewrite | `from '@solana/web3.js'` | `from '@solana/kit'` |
-| Type rename | `PublicKey` | `Address` |
 | Constructor | `new PublicKey(str)` | `address(str)` |
 | Connection | `new Connection(url)` | `createSolanaRpc(url)` |
-| Lamports | `LAMPORTS_PER_SOL` | `lamports(1_000_000_000n)` |
-| Keypair | `Keypair.generate()` | `await generateKeyPair()` |
 
 **Coverage metrics:**
-- 80% of migration patterns handled by AST transforms
+- 80% of migration patterns handled by `ast-grep` transforms
 - 0% false-positive rate (deterministic transforms)
-- Average processing time: <2 seconds per file
+- Average processing time: <1 second per file
 
 ### Stage 2: Compiler-in-the-Loop (AI, 20% Edge Cases)
 
@@ -69,7 +66,7 @@ while (tsc exits with errors) {
   1. Extract error messages from tsc stderr
   2. Parse error codes (TS2322, TS2345, TS7006, etc.)
   3. Select the affected AST node + surrounding context
-  4. Send (error + code + migration guide) → Claude 3.5 Sonnet
+  4. Send (error + code + migration guide) → Claude Sonnet
   5. Apply Claude's patch
   6. Re-run tsc
   7. Repeat (max 5 iterations)

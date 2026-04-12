@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/React-19.2-61dafb?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase" alt="Supabase" />
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
-  <a href="https://solsweep-blond.vercel.app"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.vercel.app-00ffaa?style=flat&logo=vercel" alt="Live Demo" /></a>
+  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?style=flat&logo=vercel" alt="Live Demo" /></a>
 </p>
 
 > Autonomous AST codemods verified by an adversarial AI-compiler loop. Open live PRs on real repos with **zero false positives**.
@@ -47,8 +47,8 @@ Solana's migration from `@solana/web3.js` to `@solana/kit` affects thousands of 
 
 **SolSweep** takes a radically different approach: **compiler-verified AI migration.**
 
-1. **AST Codemods** — Deterministic `jscodeshift` transforms handle 80% of migration patterns (imports, types, method calls)
-2. **Compiler-in-the-Loop** — `tsc` errors from the remaining 20% are fed to Claude 3.5 Sonnet, which patches edge cases iteratively until the build is **mathematically proven green**
+1. **AST Codemods** — Deterministic `ast-grep` transforms via the Codemod toolkit handle 80% of migration patterns (imports, types, method calls)
+2. **Compiler-in-the-Loop** — `tsc` errors from the remaining 20% are fed to Claude Sonnet, which patches edge cases iteratively until the build is **mathematically proven green**
 3. **Auto-PR** — The verified branch is pushed and a Pull Request is opened automatically
 
 **Key features:**
@@ -75,9 +75,9 @@ Solana's migration from `@solana/web3.js` to `@solana/kit` affects thousands of 
 │  API Routes      │  /api/sweep — trigger new migration   │
 │                  │  /api/status — poll sweep progress    │
 ├──────────────────┼───────────────────────────────────────┤
-│  Background      │  Git clone → jscodeshift AST mods    │
+│  Worker          │  Git clone → ast-grep/Codemod mods   │
 │  Worker          │  tsc compilation → error extraction   │
-│                  │  Claude 3.5 → patch → re-compile      │
+│                  │  Claude → patch → re-compile      │
 │                  │  git push → GitHub PR creation         │
 ├──────────────────┼───────────────────────────────────────┤
 │  Data Layer      │  Supabase (sweep records + analytics) │
@@ -94,8 +94,8 @@ Solana's migration from `@solana/web3.js` to `@solana/kit` affects thousands of 
 | UI          | React 19.2.4                        |
 | Styling     | Tailwind CSS v4 + CSS custom props  |
 | Backend     | Supabase (sweep tracking + stats)   |
-| AST Engine  | jscodeshift + TypeScript compiler   |
-| AI          | Claude 3.5 Sonnet (edge case fixes) |
+| AST Engine  | ast-grep / Codemod toolkit + tsc    |
+| AI          | Claude Sonnet (edge case fixes) |
 | Language    | TypeScript 5                        |
 
 ---
@@ -155,7 +155,11 @@ solsweep/
 │   └── lib/
 │       ├── supabase.ts       # Supabase client
 │       └── types.ts          # TypeScript interfaces
-├── DEMO_SCRIPT.md            # 2-minute demo recording script
+├── docs/                     # Documentation assets
+│   ├── DEMO_SCRIPT.md        # 2-minute demo recording script
+│   ├── CASE_STUDY.md         # Full background and context
+│   └── screenshots/          # App screenshots
+├── codemod/                  # SolSweep's core codemod plugin package
 ├── package.json
 ├── tsconfig.json
 └── next.config.ts
@@ -169,7 +173,7 @@ solsweep/
 2. **Dashboard** — Click "Launch Dashboard" → see total PRs and active sweeps
 3. **Start Migration** — Paste a GitHub URL → click "Start Migration"
 4. **Pipeline Viz** — Watch Clone → AST → Compiler Loop → PR stages light up in sequence
-5. **Log Terminal** — See real-time logs including `[AI] Compiler-Loop: Feeding error TS2322 to Claude 3.5 Sonnet...`
+5. **Log Terminal** — See real-time logs including `[AI] Compiler-Loop: Feeding error TS2322 to Claude Sonnet...`
 6. **PR Result** — Green "View Pull Request" button links to the opened PR
 
 ---
@@ -184,7 +188,7 @@ solsweep/
 
 ## 📹 Demo
 
-> 🌐 **Live App:** [solsweep-blond.vercel.app](https://solsweep-blond.vercel.app)
+> 🌐 **Live App:** [solsweep.edycu.dev](https://solsweep.edycu.dev/)
 >
 > 🎥 **Demo Video:** See [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) for the full recording walkthrough.
 >
