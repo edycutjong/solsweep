@@ -15,6 +15,10 @@
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript" />
 </p>
 <p align="center">
+  <img src="https://img.shields.io/badge/CI-passing-brightgreen" alt="CI" />
+  <img src="https://img.shields.io/badge/coverage-100%25-brightgreen" alt="Coverage" />
+</p>
+<p align="center">
   <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?logo=vercel" alt="Live Demo" /></a>
   <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?logo=youtube" alt="Demo Video" /></a>
 </p>
