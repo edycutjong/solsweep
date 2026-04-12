@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
-  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?style=for-the-badge&logo=youtube" alt="Demo Video" /></a>
+  <a href="https://solsweep.edycu.dev/"><img src="https://img.shields.io/badge/Live_Demo-▶_solsweep.edycu.dev-00ffaa?logo=vercel" alt="Live Demo" /></a>
+  <a href="https://youtu.be/ApeRnzYuN7U"><img src="https://img.shields.io/badge/Demo_Video-▶_Watch_Now-red?logo=youtube" alt="Demo Video" /></a>
 </p>
 
 <p align="center">
