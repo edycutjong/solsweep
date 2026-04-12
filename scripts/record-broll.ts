@@ -1,4 +1,5 @@
-import { chromium, Page } from 'playwright';
+import { chromium } from 'playwright';
+import type { Page } from 'playwright';
 import path from 'path';
 import fs from 'fs';
 
@@ -33,12 +34,12 @@ async function runBRoll() {
   await page.waitForTimeout(1000);
 
   console.log('Navigating to Dashboard...');
-  await page.click('text="Launch Dashboard →"');
+  await page.click('a[href="/dashboard"]');
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(2000);
 
   console.log('Entering repo URL...');
-  await typeLikeUser(page, 'input[placeholder*="GitHub"]', 'https://github.com/solana-labs/solana-pay');
+  await typeLikeUser(page, '#sweep-input', 'https://github.com/solana-labs/solana-pay');
   await page.waitForTimeout(1000);
   await page.keyboard.press('Enter');
   

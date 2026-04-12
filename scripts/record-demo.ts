@@ -35,10 +35,10 @@ async function runDemo() {
 
   // Timeline
   await waitTo(5);
-  await page.click('text="Launch Dashboard →"');
+  await page.click('a[href="/dashboard"]');
   
   await waitTo(15);
-  await page.fill('input[placeholder*="GitHub"]', 'https://github.com/solana-labs/solana-pay');
+  await page.fill('#sweep-input', 'https://github.com/solana-labs/solana-pay');
   await page.keyboard.press('Enter');
   
   await waitTo(60);

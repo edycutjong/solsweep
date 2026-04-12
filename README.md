@@ -198,6 +198,32 @@ solsweep/
 
 ---
 
+## 📺 YouTube Metadata
+
+**Title:** SolSweep: Zero-Hassle Solana Wallet Cleanup | DoraHacks Boring AI Hackathon 2026
+
+**Description:**
+```text
+SolSweep is the ultimate zero-hassle cleanup tool for Solana developers. Clear out empty token accounts, burn scam NFTs, and reclaim your SOL rent instantly. 
+
+With a sleek neon cybernetic aesthetic and one-click operations, keeping your wallet pristine has never looked so good. Connect your wallet and start sweeping today!
+
+Built for the DoraHacks Boring AI Hackathon 2026.
+
+🔗 Live Demo: https://solsweep.edycu.dev/
+💻 Source Code: https://github.com/edycutjong/solsweep
+
+#Solana #Web3 #Hackathon #DoraHacks #BoringAI #SolSweep
+```
+
+**Thumbnail (16:9 format):**
+For the YouTube thumbnail, you can use the high-fidelity landing page screenshot formatted to a standard 1280x720 16:9 layout.
+<p align="center">
+  <img src="docs/screenshots/landing-page.png" alt="SolSweep Video Thumbnail" width="640" />
+</p>
+
+---
+
 ## 📄 License
 
 MIT © 2026 [Edy Cu](https://github.com/edycutjong)

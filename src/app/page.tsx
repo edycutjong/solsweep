@@ -412,9 +412,9 @@ export default function Home() {
             ].map(({ value, suffix, label, color, ringColor }) => (
               <div key={label} className="text-center relative group">
                 {/* Decorative ring */}
-                <div className="relative inline-flex items-center justify-center mx-auto mb-3">
+                <div className="relative flex items-center justify-center mx-auto mb-3 h-24 w-24">
                   <svg
-                    className="absolute h-20 w-20 -rotate-90"
+                    className="absolute inset-0 h-full w-full -rotate-90"
                     viewBox="0 0 100 100"
                   >
                     <circle
@@ -483,28 +483,28 @@ export default function Home() {
                   title: "Clone",
                   desc: "Target repository is cloned and indexed. File graph is mapped for dependency resolution.",
                   color: "from-blue-500 to-cyan-400",
-                  icon: "📥",
+                  icon: <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>,
                 },
                 {
                   step: "02",
                   title: "AST Codemod",
                   desc: "Deterministic ast-grep / Codemod transforms handle 80% of migration patterns: imports, types, method calls.",
                   color: "from-sol-warning to-orange-400",
-                  icon: "⚙️",
+                  icon: <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
                 },
                 {
                   step: "03",
                   title: "Compiler Loop",
                   desc: "tsc errors are fed to Claude. The AI patches edge cases and iterates until the build is green.",
                   color: "from-sol-purple to-pink-500",
-                  icon: "🧠",
+                  icon: <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1-.98-4.36 2.5 2.5 0 0 1 1.9-4.22A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0 .98-4.36 2.5 2.5 0 0 0-1.9-4.22A2.5 2.5 0 0 0 14.5 2z"/></svg>,
                 },
                 {
                   step: "04",
                   title: "Ship PR",
                   desc: "A verified feature branch is pushed and a Pull Request is opened with a full change summary.",
                   color: "from-sol-green to-emerald-400",
-                  icon: "🚀",
+                  icon: <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.73-2.52 7.73-6 9-.94.34-1.92.54-3 .54-1.08 0-2.06-.2-3-.54Z"/><path d="m9 11.5 1.5 1.5"/></svg>,
                 },
               ].map(({ step, title, desc, color, icon }, idx) => (
                 <div key={step} className="card-3d" style={{ animationDelay: `${idx * 120}ms` }}>
@@ -562,12 +562,12 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
-                { name: "Next.js 16", icon: "▲", bg: "from-white/10 to-white/5" },
-                { name: "React 19", icon: "⚛️", bg: "from-blue-500/10 to-cyan-500/5" },
-                { name: "TypeScript", icon: "TS", bg: "from-blue-500/10 to-blue-700/5" },
-                { name: "Supabase", icon: "⚡", bg: "from-emerald-500/10 to-emerald-700/5" },
-                { name: "ast-grep", icon: "🔧", bg: "from-sol-warning/10 to-orange-500/5" },
-                { name: "Claude", icon: "🧠", bg: "from-sol-purple/10 to-pink-500/5" },
+                { name: "Next.js 16", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 3.5l7 14H5l7-14z"/></svg>, bg: "from-white/10 to-white/5" },
+                { name: "React 19", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10zM12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2Z"/><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(45 12 12)"/><ellipse cx="12" cy="12" rx="4" ry="10" transform="rotate(-45 12 12)"/><circle cx="12" cy="12" r="2"/></svg>, bg: "from-blue-500/10 to-cyan-500/5" },
+                { name: "TypeScript", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M2 2h20v20H2V2zm10.5 10.5v-3h-3v-1.5h7.5v1.5h-3v7.5h-1.5v-4.5zm-5 4.5c-2.5 0-3.5-1.5-3.5-3.5h1.5c0 1.5.5 2 2 2s2-.5 2-1.5c0-2-3.5-1.5-3.5-4s1.5-3.5 3.5-3.5c2 0 3.5 1 3.5 3h-1.5c0-1-1-1.5-2-1.5s-2 .5-2 1.5c0 2 3.5 1.5 3.5 4s-1.5 3.5-3.5 3.5z"/></svg>, bg: "from-blue-500/10 to-blue-700/5" },
+                { name: "Supabase", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-4H7l6-7v4h4l-6 7z"/></svg>, bg: "from-emerald-500/10 to-emerald-700/5" },
+                { name: "ast-grep", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>, bg: "from-sol-warning/10 to-orange-500/5" },
+                { name: "Claude", icon: <svg className="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1-.98-4.36 2.5 2.5 0 0 1 1.9-4.22A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0 .98-4.36 2.5 2.5 0 0 0-1.9-4.22A2.5 2.5 0 0 0 14.5 2z"/></svg>, bg: "from-sol-purple/10 to-pink-500/5" },
               ].map(({ name, icon, bg }) => (
                 <div
                   key={name}
