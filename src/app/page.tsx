@@ -3,8 +3,8 @@
 import Header from "@/components/Header";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Wrench, BrainCircuit } from "lucide-react";
-import { SiNextdotjs, SiReact, SiTypescript, SiSupabase } from "@icons-pack/react-simple-icons";
+import { Wrench } from "lucide-react";
+import { SiNextdotjs, SiReact, SiTypescript, SiSupabase, SiClaude } from "@icons-pack/react-simple-icons";
 /* ─── Intersection Observer scroll reveal ───────────────────────── */
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -568,7 +568,7 @@ export default function Home() {
                 { name: "TypeScript", icon: <SiTypescript size={32} className="mx-auto text-[#3178C6]" />, bg: "from-blue-500/10 to-blue-700/5" },
                 { name: "Supabase", icon: <SiSupabase size={32} className="mx-auto text-[#3ECF8E]" />, bg: "from-emerald-500/10 to-emerald-700/5" },
                 { name: "ast-grep", icon: <Wrench size={32} className="mx-auto text-orange-400" />, bg: "from-sol-warning/10 to-orange-500/5" },
-                { name: "Claude", icon: <BrainCircuit size={32} className="mx-auto text-pink-400" />, bg: "from-sol-purple/10 to-pink-500/5" },
+                { name: "Claude", icon: <SiClaude size={28} className="mx-auto text-pink-400" />, bg: "from-sol-purple/10 to-pink-500/5" },
               ].map(({ name, icon, bg }) => (
                 <div
                   key={name}
@@ -587,21 +587,36 @@ export default function Home() {
         {/* ═══ Footer ═══ */}
         <footer className="section-divider px-6 py-10">
           <div className="mx-auto max-w-5xl flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-sol-muted flex items-center gap-2">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded bg-linear-to-br from-sol-green to-sol-purple text-[10px]">
+            <a 
+              href="https://dorahacks.io/hackathon/boring-ai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group text-sm text-sol-muted hover:text-white transition-colors flex items-center gap-2"
+            >
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded bg-linear-to-br from-sol-green to-sol-purple text-[10px] group-hover:shadow-[0_0_10px_rgba(42,245,152,0.5)] transition-shadow">
                 🏆
               </span>
               Built for DoraHacks Boring AI 2026
-            </p>
+            </a>
             <p className="text-sm text-sol-muted">
               Powered by{" "}
-              <span className="font-medium text-sol-green">
+              <a 
+                href="https://codemod.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-medium text-sol-green hover:underline decoration-sol-green/30 underline-offset-2 transition-colors"
+              >
                 Codemod
-              </span>{" "}
+              </a>{" "}
               ×{" "}
-              <span className="font-medium text-sol-purple">
+              <a 
+                href="https://anthropic.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-medium text-sol-purple hover:underline decoration-sol-purple/30 underline-offset-2 transition-colors"
+              >
                 Claude
-              </span>
+              </a>
             </p>
           </div>
         </footer>
