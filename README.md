@@ -100,8 +100,11 @@ Create a `.env.local` file in the project root:
 
 ```env
 # Supabase (optional — falls back to demo mode)
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+
+# Codemod.com (for publishing/registry access)
+CODEMOD_API_KEY=your-codemod-api-key-here
 ```
 
 > **Note:** The app runs fully in demo mode without any environment variables. The pipeline visualization and log terminal use simulated data for a reliable demo experience.
@@ -194,12 +197,6 @@ Built for the DoraHacks Boring AI Hackathon 2026.
 
 #Solana #Web3 #Hackathon #DoraHacks #BoringAI #SolSweep
 ```
-
-**Thumbnail (16:9 format):**
-For the YouTube thumbnail, you can use the high-fidelity landing page screenshot formatted to a standard 1280x720 16:9 layout.
-<p align="center">
-  <img src="docs/screenshots/SolSweep_Thumbnail_16_9.png" alt="SolSweep Video Thumbnail" width="640" />
-</p>
 
 ---
 
