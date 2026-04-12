@@ -88,8 +88,10 @@ function TypewriterText({
     if (!isDeleting && displayText === current) {
       timer = setTimeout(() => setIsDeleting(true), pause);
     } else if (isDeleting && displayText === "") {
-      setIsDeleting(false);
-      setCurrentIndex((prev) => (prev + 1) % texts.length);
+      timer = setTimeout(() => {
+        setIsDeleting(false);
+        setCurrentIndex((prev) => (prev + 1) % texts.length);
+      }, speed);
     } else {
       timer = setTimeout(
         () => {
@@ -125,7 +127,7 @@ const CODE_LINES = [
     color: "text-sol-error",
   },
   {
-    text: "🧠 AI Loop: Feeding TS2345 to Claude 3.5...",
+    text: "🧠 AI Loop: Feeding TS2345 to Claude...",
     color: "text-sol-purple",
   },
   {
@@ -484,14 +486,14 @@ export default function Home() {
                 {
                   step: "02",
                   title: "AST Codemod",
-                  desc: "Deterministic jscodeshift transforms handle 80% of migration patterns: imports, types, method calls.",
+                  desc: "Deterministic ast-grep / Codemod transforms handle 80% of migration patterns: imports, types, method calls.",
                   color: "from-sol-warning to-orange-400",
                   icon: "⚙️",
                 },
                 {
                   step: "03",
                   title: "Compiler Loop",
-                  desc: "tsc errors are fed to Claude 3.5. The AI patches edge cases and iterates until the build is green.",
+                  desc: "tsc errors are fed to Claude. The AI patches edge cases and iterates until the build is green.",
                   color: "from-sol-purple to-pink-500",
                   icon: "🧠",
                 },
@@ -506,7 +508,7 @@ export default function Home() {
                 <div key={step} className="card-3d" style={{ animationDelay: `${idx * 120}ms` }}>
                   <SpotlightCard className="card-3d-inner rounded-2xl glass card-hover p-6 relative shine-effect">
                     {/* Step number watermark */}
-                    <div className="absolute top-3 right-4 text-6xl font-black text-white/[0.02] select-none">
+                    <div className="absolute top-3 right-4 text-6xl font-black text-white/2 select-none">
                       {step}
                     </div>
                     <div className="flex items-center gap-3 mb-4">
@@ -562,8 +564,8 @@ export default function Home() {
                 { name: "React 19", icon: "⚛️", bg: "from-blue-500/10 to-cyan-500/5" },
                 { name: "TypeScript", icon: "TS", bg: "from-blue-500/10 to-blue-700/5" },
                 { name: "Supabase", icon: "⚡", bg: "from-emerald-500/10 to-emerald-700/5" },
-                { name: "jscodeshift", icon: "🔧", bg: "from-sol-warning/10 to-orange-500/5" },
-                { name: "Claude 3.5", icon: "🧠", bg: "from-sol-purple/10 to-pink-500/5" },
+                { name: "ast-grep", icon: "🔧", bg: "from-sol-warning/10 to-orange-500/5" },
+                { name: "Claude", icon: "🧠", bg: "from-sol-purple/10 to-pink-500/5" },
               ].map(({ name, icon, bg }) => (
                 <div
                   key={name}
@@ -595,7 +597,7 @@ export default function Home() {
               </span>{" "}
               ×{" "}
               <span className="font-medium text-sol-purple">
-                Claude 3.5
+                Claude
               </span>
             </p>
           </div>

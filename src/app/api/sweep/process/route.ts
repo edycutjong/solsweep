@@ -24,7 +24,7 @@ async function simulateSweepWorker(sweepId: string) {
 
     // 2. AST Codemod
     await setStatus("ast");
-    await log("info", "Running @solana/kit AST codemod (jscodeshift)...");
+    await log("info", "Running @solana/kit AST codemod (ast-grep / Codemod)...");
     await sleep(3000);
     await log("success", "AST: 32 transforms applied across 6 files");
     await setStatus("ast", { ast_fixes: 32, files_changed: 6 });
@@ -35,7 +35,7 @@ async function simulateSweepWorker(sweepId: string) {
     await sleep(2000);
     await log("warn", "tsc: 2 type errors detected in src/instructions.ts");
     await sleep(1500);
-    await log("ai", "Compiler-Loop: Feeding error TS2322 to Claude 3.5 Sonnet...");
+    await log("ai", "Compiler-Loop: Feeding error TS2322 to Claude Sonnet...");
     await sleep(4000);
     await log("ai", "Patch applied: AccountMeta mutability mismatch resolved.");
     await setStatus("ai_loop", { ai_fixes: 1, files_changed: 7 });
