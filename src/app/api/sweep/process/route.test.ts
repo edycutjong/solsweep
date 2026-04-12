@@ -1,6 +1,6 @@
 jest.mock("next/server", () => ({
   NextResponse: {
-    json: (data: any, init?: any) => ({
+    json: (data: unknown, init?: { status?: number }) => ({
       status: init?.status || 200,
       json: async () => data
     })
@@ -10,7 +10,6 @@ jest.mock("next/server", () => ({
 import { POST } from "./route";
 import { type NextRequest } from "next/server";
 import { insertLog, updateSweepStatus } from "@/lib/supabase";
-import { createMocks } from "node-mocks-http";
 
 jest.mock("@/lib/supabase", () => ({
   insertLog: jest.fn(),
@@ -41,7 +40,7 @@ describe("POST /api/sweep/process", () => {
   it("returns 500 if JSON parsing fails", async () => {
     const req = {
       json: async () => { throw new Error("JSON Error"); },
-    } as NextRequest;
+    } as unknown as NextRequest;
 
     const response = await POST(req);
     const data = await response.json();
@@ -134,7 +133,7 @@ describe("POST /api/sweep/process", () => {
   it("handles catch block in POST with 500 (non-Error throw)", async () => {
     const req = {
       json: async () => { throw "Body Parse Error"; },
-    } as NextRequest;
+    } as unknown as NextRequest;
 
     const response = await POST(req);
     const data = await response.json();

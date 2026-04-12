@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import PipelineVisualizer from "./PipelineVisualizer";
-import { SweepStatus } from "@/lib/database.types";
+
 
 describe("PipelineVisualizer", () => {
   const steps = ["Cloning", "AST Transforms", "Compiler-in-the-Loop", "Testing", "Publishing PR"];
@@ -37,7 +37,9 @@ describe("PipelineVisualizer", () => {
   });
 
   it("renders null for invalid status", () => {
-    const { container } = render(<PipelineVisualizer status={"invalid" as any} />);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { container } = render(<PipelineVisualizer status={"invalid"} />);
     expect(container.firstChild).toBeNull();
   });
 

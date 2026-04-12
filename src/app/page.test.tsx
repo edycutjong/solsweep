@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, act, fireEvent } from "@testing-library/react";
 import Home from "./page";
 import PipelineVisualizer from "@/components/PipelineVisualizer";
-import SweepInput from "@/components/SweepInput";
 import { AnimatedCounter, TypewriterText, SpotlightCard } from "./page";
 import { updateSweepStatus } from "@/lib/supabase";
 
@@ -16,10 +15,10 @@ jest.mock("@/lib/supabase", () => {
 });
 
 // Mock IntersectionObserver to trigger callbacks
-const mockInstances: any[] = [];
+const mockInstances: IntersectionObserverMock[] = [];
 class IntersectionObserverMock {
-  callback: any;
-  constructor(callback: any) {
+  callback: IntersectionObserverCallback;
+  constructor(callback: IntersectionObserverCallback) {
     this.callback = callback;
     mockInstances.push(this);
   }
@@ -27,7 +26,7 @@ class IntersectionObserverMock {
   disconnect = jest.fn();
   unobserve = jest.fn();
   trigger(isIntersecting: boolean) {
-    this.callback([{ isIntersecting }]);
+    this.callback([{ isIntersecting } as IntersectionObserverEntry], this as unknown as IntersectionObserver);
   }
   static get instances() {
     return mockInstances;
@@ -36,12 +35,12 @@ class IntersectionObserverMock {
     mockInstances.length = 0;
   }
 }
-global.IntersectionObserver = IntersectionObserverMock as any;
+global.IntersectionObserver = IntersectionObserverMock as unknown as typeof IntersectionObserver;
 
 // Mock requestAnimationFrame
-global.requestAnimationFrame = (callback: FrameRequestCallback) => {
-  return setTimeout(() => callback(performance.now()), 16) as any;
-};
+global.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+  return setTimeout(() => callback(performance.now()), 16);
+}) as unknown as typeof requestAnimationFrame;
 
 describe("Page: Home", () => {
   beforeEach(() => {
@@ -143,16 +142,16 @@ describe("Page: Home", () => {
   });
 
   it("triggers AnimatedCounter when intersected", () => {
-    (IntersectionObserverMock as any).clearInstances();
+    (IntersectionObserverMock as unknown as { clearInstances: () => void }).clearInstances();
     render(<Home />);
     
     // initially 0
     expect(screen.getAllByText("0")).toHaveLength(3);
 
-    const instances = (IntersectionObserverMock as any).instances;
+    const instances = (IntersectionObserverMock as unknown as { instances: IntersectionObserverMock[] }).instances;
     
     act(() => {
-      instances.forEach((obs: any) => obs.trigger(true));
+      instances.forEach((obs: IntersectionObserverMock) => obs.trigger(true));
     });
     for(let i=0; i<80; i++) {
       act(() => {
@@ -193,10 +192,14 @@ describe("Page: Home", () => {
   });
 
   it("PipelineVisualizer returns null if status is invalid", () => {
-    const { container } = render(<PipelineVisualizer status={"invalid" as any} />);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { container } = render(<PipelineVisualizer status={"invalid"} />);
     expect(container.firstChild).toBeNull();
     
-    const { container: container2 } = render(<PipelineVisualizer status={undefined as any} />);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { container: container2 } = render(<PipelineVisualizer status={undefined} />);
     expect(container2.firstChild).toBeNull();
   });
 
@@ -242,9 +245,9 @@ describe("Page: Home", () => {
     const { unmount } = render(<Home />);
     
     // trigger false intersection
-    const instances = (IntersectionObserverMock as any).instances;
+    const instances = (IntersectionObserverMock as unknown as { instances: IntersectionObserverMock[] }).instances;
     act(() => {
-      instances.forEach((obs: any) => obs.trigger(false));
+      instances.forEach((obs: IntersectionObserverMock) => obs.trigger(false));
     });
 
     // unmount components to hit cleanup logic
@@ -253,7 +256,7 @@ describe("Page: Home", () => {
 
   it("covers AnimatedCounter with default suffix", () => {
     render(<AnimatedCounter target={100} />);
-    const instances = (IntersectionObserverMock as any).instances;
+    const instances = (IntersectionObserverMock as unknown as { instances: IntersectionObserverMock[] }).instances;
     act(() => {
       instances[instances.length - 1].trigger(true);
     });

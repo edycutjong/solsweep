@@ -3,8 +3,8 @@ import DashboardPage from "./page";
 import * as supabaseLib from "@/lib/supabase";
 
 let realtimeCallback: () => void;
-const mockChannel = {
-  on: jest.fn((event, filter, cb) => {
+const mockChannel: Record<string, jest.Mock> = {
+  on: jest.fn((event: string, filter: Record<string, unknown>, cb: () => void): Record<string, jest.Mock> => {
     if (event === "postgres_changes") realtimeCallback = cb;
     return mockChannel;
   }),

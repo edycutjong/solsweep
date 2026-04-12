@@ -1,5 +1,5 @@
 import { GET } from "./route";
-import * as supabase from "@/lib/supabase";
+import { type NextRequest } from "next/server";import * as supabase from "@/lib/supabase";
 
 // Mock next/server
 jest.mock("next/server", () => ({
@@ -23,13 +23,13 @@ describe("API: /api/sweep/[id]", () => {
 
   it("returns 404 if sweep is not found", async () => {
     (supabase.getSweepById as jest.Mock).mockResolvedValue({ data: null, error: null });
-    const res = await GET({} as any, { params: Promise.resolve({ id: "non-existent" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "non-existent" }) });
     expect(res.status).toBe(404);
   });
 
   it("returns 404 if supabase returns error", async () => {
     (supabase.getSweepById as jest.Mock).mockResolvedValue({ data: null, error: { message: "Fail" } });
-    const res = await GET({} as any, { params: Promise.resolve({ id: "123" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "123" }) });
     expect(res.status).toBe(404);
   });
 
@@ -44,7 +44,7 @@ describe("API: /api/sweep/[id]", () => {
     };
     (supabase.getSweepById as jest.Mock).mockResolvedValue({ data: mockSweep, error: null });
 
-    const res = await GET({} as any, { params: Promise.resolve({ id: "123" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "123" }) });
     const data = await res.json();
 
     expect(res.status).toBe(200);
@@ -58,7 +58,7 @@ describe("API: /api/sweep/[id]", () => {
       data: { id: "123", solsweep_logs: null }, 
       error: null 
     });
-    const res = await GET({} as any, { params: Promise.resolve({ id: "123" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "123" }) });
     expect(res.status).toBe(200);
   });
 
@@ -66,7 +66,7 @@ describe("API: /api/sweep/[id]", () => {
     (supabase.getSweepById as jest.Mock).mockImplementation(() => {
       throw new Error("Typed Error");
     });
-    const res = await GET({} as any, { params: Promise.resolve({ id: "123" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "123" }) });
     const data = await res.json();
     expect(res.status).toBe(500);
     expect(data.error).toBe("Typed Error");
@@ -76,7 +76,7 @@ describe("API: /api/sweep/[id]", () => {
     (supabase.getSweepById as jest.Mock).mockImplementation(() => {
       throw "Unexpected String Error";
     });
-    const res = await GET({} as any, { params: Promise.resolve({ id: "123" }) });
+    const res = await GET({} as unknown as NextRequest, { params: Promise.resolve({ id: "123" }) });
     const data = await res.json();
     expect(res.status).toBe(500);
     expect(data.error).toBe("Internal Server Error");

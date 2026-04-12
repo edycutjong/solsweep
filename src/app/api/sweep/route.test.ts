@@ -1,4 +1,5 @@
 import { POST, GET } from "./route";
+import { type NextRequest } from "next/server";
 import * as supabase from "@/lib/supabase";
 
 // Mock next/server
@@ -26,7 +27,7 @@ describe("API: /api/sweep", () => {
 
   describe("POST", () => {
     it("returns 400 if repoUrl is missing", async () => {
-      const req = { json: jest.fn().mockResolvedValue({}) } as any;
+      const req = { json: jest.fn().mockResolvedValue({}) } as unknown as NextRequest;
       const res = await POST(req);
       const data = await res.json();
       expect(res.status).toBe(400);
@@ -43,7 +44,7 @@ describe("API: /api/sweep", () => {
       const req = { 
         json: jest.fn().mockResolvedValue({ repoUrl: "https://github.com/org/repo" }),
         nextUrl: { origin: "http://localhost:3000" }
-      } as any;
+      } as unknown as NextRequest;
 
       await POST(req);
       expect(supabase.insertSweep).toHaveBeenCalledWith(expect.objectContaining({
@@ -59,7 +60,7 @@ describe("API: /api/sweep", () => {
       const req = { 
         json: jest.fn().mockResolvedValue({ repoUrl: "not-a-url" }),
         nextUrl: { origin: "http://localhost:3000" }
-      } as any;
+      } as unknown as NextRequest;
       await POST(req);
       expect(supabase.insertSweep).toHaveBeenCalledWith(expect.objectContaining({
         repo_name: "not-a-url"
@@ -69,7 +70,7 @@ describe("API: /api/sweep", () => {
     it("returns 500 if supabase insert fails", async () => {
       const spy = jest.spyOn(console, "error").mockImplementation();
       (supabase.insertSweep as jest.Mock).mockResolvedValue({ data: null, error: { message: "DB Error" } });
-      const req = { json: jest.fn().mockResolvedValue({ repoUrl: "test" }) } as any;
+      const req = { json: jest.fn().mockResolvedValue({ repoUrl: "test" }) } as unknown as NextRequest;
       const res = await POST(req);
       expect(res.status).toBe(500);
       spy.mockRestore();
@@ -83,7 +84,7 @@ describe("API: /api/sweep", () => {
       const req = { 
         json: jest.fn().mockResolvedValue({ repoUrl: "test" }),
         nextUrl: { origin: "http://localhost" }
-      } as any;
+      } as unknown as NextRequest;
       
       const res = await POST(req);
       expect(res.status).toBe(201);
@@ -98,7 +99,7 @@ describe("API: /api/sweep", () => {
       const req = { 
         json: jest.fn().mockResolvedValue({ repoUrl: "test" }),
         nextUrl: { origin: "http://localhost" }
-      } as any;
+      } as unknown as NextRequest;
       
       const res = await POST(req);
       expect(res.status).toBe(201); // Still 201 because it's fire-and-forget
@@ -107,7 +108,7 @@ describe("API: /api/sweep", () => {
 
     it("handles general catch block (Error object)", async () => {
       const error = new Error("Specific Error");
-      const req = { json: jest.fn().mockRejectedValue(error) } as any;
+      const req = { json: jest.fn().mockRejectedValue(error) } as unknown as NextRequest;
       const res = await POST(req);
       const data = await res.json();
       expect(res.status).toBe(500);
@@ -115,7 +116,7 @@ describe("API: /api/sweep", () => {
     });
 
     it("handles general catch block (non-Error object)", async () => {
-      const req = { json: jest.fn().mockRejectedValue("Oops") } as any;
+      const req = { json: jest.fn().mockRejectedValue("Oops") } as unknown as NextRequest;
       const res = await POST(req);
       const data = await res.json();
       expect(res.status).toBe(500);
@@ -130,7 +131,7 @@ describe("API: /api/sweep", () => {
       const req = { 
         json: jest.fn().mockResolvedValue({ repoUrl: "https://github.com/org" }),
         nextUrl: { origin: "http://localhost:3000" }
-      } as any;
+      } as unknown as NextRequest;
 
       await POST(req);
       expect(supabase.insertSweep).toHaveBeenCalledWith(expect.objectContaining({

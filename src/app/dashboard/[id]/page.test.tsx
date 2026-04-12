@@ -1,14 +1,13 @@
 import { render, screen, act, waitFor } from "@testing-library/react";
 import SweepDetailPage from "./page";
-import * as react from "react";
 
 // Mock 'use' hook from React 19
 jest.mock("react", () => {
   const actual = jest.requireActual("react");
   return {
     ...actual,
-    use: (promise: any) => {
-      if (promise && typeof promise.then === "function") {
+    use: <T,>(promise: T | Promise<T>) => {
+      if (promise && typeof (promise as Promise<T>).then === "function") {
         return { id: "sweep-123" };
       }
       return promise;
@@ -17,7 +16,7 @@ jest.mock("react", () => {
 });
 
 describe("Page: SweepDetail", () => {
-  let mockParams: any;
+  let mockParams: Promise<{ id: string }>;
 
   beforeEach(() => {
     jest.clearAllMocks();

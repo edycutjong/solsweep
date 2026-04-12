@@ -1,15 +1,17 @@
 import '@testing-library/jest-dom';
 
 // Polyfill Fetch API for Next.js 16 tests
-// @ts-ignore
+// @ts-expect-error Polyfill for jsdom environment
 global.Headers = class Headers {
   _map: Map<string, string>;
-  constructor(init?: any) {
+  constructor(init?: HeadersInit | Record<string, string>) {
     this._map = new Map();
     if (init) {
-      if (init instanceof Headers || (init && init._map)) {
-        const source = init._map || init;
+      if (init instanceof Headers || ('_map' in init && init._map)) {
+        const source = ('_map' in init ? init._map : init) as Map<string, string>;
         source.forEach((v: string, k: string) => this._map.set(k.toLowerCase(), v));
+      } else if (Array.isArray(init)) {
+        init.forEach(([k, v]) => this._map.set(k.toLowerCase(), String(v)));
       } else {
         Object.entries(init).forEach(([k, v]) => {
           this._map.set(k.toLowerCase(), String(v));
@@ -19,7 +21,7 @@ global.Headers = class Headers {
   }
   get(name: string) { return this._map.get(name.toLowerCase()) || null; }
   has(name: string) { return this._map.has(name.toLowerCase()); }
-  forEach(cb: any) { this._map.forEach(cb); }
+  forEach(cb: (value: string, key: string, parent: Headers) => void) { this._map.forEach((v, k) => cb(v, k, this as unknown as Headers)); }
   getSetCookie() { return []; }
   append(name: string, value: string) { this._map.set(name.toLowerCase(), value); }
   entries() { return this._map.entries(); }
@@ -28,16 +30,16 @@ global.Headers = class Headers {
   [Symbol.iterator]() { return this._map.entries(); }
 };
 
-// @ts-ignore
+// @ts-expect-error Polyfill for jsdom environment
 global.Request = class Request {
   _url: string;
   _method: string;
   _body: string | null;
-  _headers: any;
-  constructor(url: string, init?: any) {
+  _headers: Headers;
+  constructor(url: string, init?: RequestInit & { _map?: Map<string, string> }) {
     this._url = url;
     this._method = init?.method || 'GET';
-    this._body = init?.body || null;
+    this._body = init?.body ? String(init.body) : null;
     this._headers = new global.Headers(init?.headers);
   }
   get url() { return this._url; }
@@ -48,12 +50,12 @@ global.Request = class Request {
   }
 };
 
-// @ts-ignore
+// @ts-expect-error Polyfill for jsdom environment
 global.Response = class Response {
-  _body: any;
-  _init: any;
-  _headers: any;
-  constructor(body?: any, init?: any) {
+  _body: unknown;
+  _init: ResponseInit;
+  _headers: Headers;
+  constructor(body?: unknown, init?: ResponseInit) {
     this._body = body;
     this._init = init || {};
     this._headers = new global.Headers(this._init.headers);
@@ -63,7 +65,7 @@ global.Response = class Response {
   async json() {
     return typeof this._body === 'string' ? JSON.parse(this._body) : this._body;
   }
-  static json(data: any, init?: any) {
+  static json(data: unknown, init?: ResponseInit) {
     return new Response(JSON.stringify(data), init);
   }
 };

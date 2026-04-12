@@ -43,8 +43,6 @@ export default function DashboardPage() {
   const [error, setError] = useState(false);
 
   const fetchSweeps = () => {
-    setLoading(true);
-    setError(false);
     fetch("/api/sweep")
       .then((res) => {
         if (!res.ok) throw new Error("Fetch failed");

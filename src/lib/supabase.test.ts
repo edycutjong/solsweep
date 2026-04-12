@@ -70,7 +70,7 @@ describe("Supabase Utils", () => {
   });
 
   it("getAllSweeps fetches all sweeps ordered by date", async () => {
-    (mockOrder as any).mockResolvedValue({ data: [], error: null });
+    (mockOrder as jest.Mock).mockResolvedValue({ data: [], error: null });
 
     await import("./supabase").then(m => m.getAllSweeps());
 
@@ -79,7 +79,7 @@ describe("Supabase Utils", () => {
   });
 
   it("insertLog inserts a log entry", async () => {
-    (mockInsert as any).mockResolvedValue({ error: null });
+    (mockInsert as jest.Mock).mockResolvedValue({ error: null });
 
     await import("./supabase").then(m => m.insertLog({ sweep_id: "1", level: "info", message: "msg" }));
 
