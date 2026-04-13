@@ -1,0 +1,39 @@
+# .github/workflows/publish-codemod.yml
+name: Publish Codemod
+
+on:
+  push:
+    tags:
+      - "codemod@v*"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Test JSSG transform
+        run: npx codemod@latest jssg test ./codemod/solana-web3-to-kit/scripts/codemod.ts --language typescript
+
+      - name: Validate workflow
+        run: npx codemod@latest workflow validate -w ./codemod/solana-web3-to-kit/workflow.yaml
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish codemod
+        uses: codemod/publish-action@v1
+        with:
+          path: codemod/solana-web3-to-kit

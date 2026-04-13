@@ -24,24 +24,57 @@ const transform: Transform<TS | TSX | JS> = async (root) => {
     return node.replace(`address(${key})`);
   });
 
-  // Rule 3: update imports from "@solana/web3.js"
+  // Rule 3: Keypair.generate() -> await generateKeyPair()
+  const keypairs = rootNode.findAll({
+    rule: { pattern: "Keypair.generate()" },
+  });
+  const editsKeypair = keypairs.map((node) => {
+    return node.replace("await generateKeyPair()");
+  });
+
+  // Rule 4: LAMPORTS_PER_SOL -> lamports(1_000_000_000n)
+  // Only match standalone identifiers, not inside import declarations
+  const lamportsRefs = rootNode.findAll({
+    rule: {
+      pattern: "LAMPORTS_PER_SOL",
+      kind: "identifier",
+      not: {
+        inside: { kind: "import_specifier" },
+      },
+    },
+  });
+  const editsLamports = lamportsRefs.map((node) => {
+    return node.replace("lamports(1_000_000_000n)");
+  });
+
+  // Rule 5: update imports from "@solana/web3.js"
   const imports = rootNode.findAll({
     rule: { pattern: 'import { $$$IMPORTS } from "@solana/web3.js"' },
   });
-  
+
   const editsImports = imports.map((node) => {
     let text = node.text();
     text = text.replace(/\bConnection\b/g, "createSolanaRpc");
     text = text.replace(/\bPublicKey\b/g, "address");
+    text = text.replace(/\bKeypair\b/g, "generateKeyPair");
+    text = text.replace(/\bLAMPORTS_PER_SOL\b/g, "lamports");
     text = text.replace(/@solana\/web3\.js/g, "@solana/kit");
     return node.replace(text);
   });
 
-  const newSource = rootNode.commitEdits([
+  const allEdits = [
     ...editsConnection,
     ...editsPublicKey,
+    ...editsKeypair,
+    ...editsLamports,
     ...editsImports,
-  ]);
+  ];
+
+  if (allEdits.length === 0) {
+    return null;
+  }
+
+  const newSource = rootNode.commitEdits(allEdits);
   return newSource;
 };
 

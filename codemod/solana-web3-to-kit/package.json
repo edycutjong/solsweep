@@ -1,7 +1,7 @@
 {
   "name": "solana-web3-to-kit",
-  "version": "0.1.0",
-  "description": "Transform solana/web3.js calls to solana-kit",
+  "version": "0.2.0",
+  "description": "Migrate @solana/web3.js to @solana/kit — deterministic AST transforms for imports, constructors, and constants",
   "type": "module",
   "scripts": {
     "test": "npx codemod@latest jssg test -l typescript ./scripts/codemod.ts",
